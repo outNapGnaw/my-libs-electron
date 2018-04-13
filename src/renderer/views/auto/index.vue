@@ -47,7 +47,6 @@
         <el-tabs v-if="workbook.length>0" v-model="activeName"  type="card" @tab-click="handleClick">
           <el-tab-pane v-for="sheet in workbook" :label="sheet.name" :name="sheet.name">
             <el-table
-              max-height="500"
               border
               tooltip-effect="dark"
               :data="sheet.data"
@@ -168,13 +167,11 @@ export default {
       this.selectRows.map((item, idx) => {
         // this.freshPage(item[self.urlCol])
         this.getPage(item[self.urlCol], function(text) {
-          self.$set(
-            self.selectRows,
-            idx,
-            Object.assign(item, {
-              scan: text
-            })
-          );
+          self.workbook.map(wb=>{
+            if(wb.name == self.activeName){
+              self.$set(wb.data,idx,Object.assign(wb.data[idx],{scan:text}))
+            }
+          })
         });
       });
     },
