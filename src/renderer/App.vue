@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'ele-video'
+    name: 'my-libs-electron'
   }
 </script>
 
