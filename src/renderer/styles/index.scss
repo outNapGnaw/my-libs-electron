@@ -1,0 +1,45 @@
+.svg-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+//====== flex =======//
+.flex{
+    display: flex;
+}
+
+.flex-1{
+    flex: 1;
+}
+
+.flex-row{
+    flex-direction: row;
+}
+
+.flex-column{
+    flex-direction: column;
+}
+
+.flex-v-center{
+    align-items: center;
+}
+
+.flex-h-center{
+    justify-content: center;
+}
+
+.flex-x-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.h-c{
+    text-align: center;
+}
+
+.gap-20{
+    margin-top: 30px;
+}
