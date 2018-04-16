@@ -11,9 +11,9 @@
         <el-row type="flex" >
             <el-button type="primary" round @click="importExcelToTable">导入excel
             </el-button>
-            <el-button type="success" round @click="freshSelect(selectRows)">刷新选中
+            <el-button type="success" round @click="freshSelect">刷新选中
             </el-button>
-            <el-button type="success" round @click="freshSelect">刷新全部
+            <el-button type="success" round @click="freshAll">刷新全部
             </el-button>
         </el-row>
         <el-row class="">
@@ -166,13 +166,40 @@ export default {
       let self = this;
       this.selectRows.map((item, idx) => {
         // this.freshPage(item[self.urlCol])
-        this.getPage(item[self.urlCol], function(text) {
-          self.workbook.map(wb=>{
-            if(wb.name == self.activeName){
-              self.$set(wb.data,idx,Object.assign(wb.data[idx],{scan:text}))
-            }
-          })
-        });
+
+        let freshTimer = setInterval(function() {
+          self.getPage(item[self.urlCol], function(text) {
+            self.workbook.map(wb => {
+              if (wb.name == self.activeName) {
+                self.$set(
+                  wb.data,
+                  idx,
+                  Object.assign(wb.data[idx], { scan: text })
+                );
+              }
+            });
+          });
+        }, self.rate);
+      });
+    },
+    freshAll() {
+      let self = this;
+      let currWorkBook = _.find(this.workbook, { name: this.activeName });
+      currWorkBook.data.map((item, idx) => {
+        // this.freshPage(item[self.urlCol])
+        let freshTimer = setInterval(function() {
+          self.getPage(item[self.urlCol], function(text) {
+            self.workbook.map(wb => {
+              if (wb.name == self.activeName) {
+                self.$set(
+                  wb.data,
+                  idx,
+                  Object.assign(wb.data[idx], { scan: text })
+                );
+              }
+            });
+          });
+        }, this.rate);
       });
     },
     freshPage(row) {

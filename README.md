@@ -8,6 +8,9 @@
 # install dependencies
 npm install
 
+# rebuild electron with robotjs
+npm run rebuild
+
 # serve with hot reload at localhost:9080
 npm run dev
 
